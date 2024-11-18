@@ -16,3 +16,11 @@ k.loadSprite('obstacles', './obstacles.png');
 k.loadSound('confirm', './confirm.wav');
 k.loadSound('hurt', './hurt.wav');
 k.loadSound('jump', './jump.wav');
+
+k.scene('start', () => {
+  k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex('#d7f2f7')), k.fixed()]);
+});
+
+k.scene('main', () => {});
+
+k.go('start');
