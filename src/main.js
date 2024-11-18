@@ -23,6 +23,15 @@ k.scene('start', () => {
   k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex('#d7f2f7')), k.fixed()]);
 
   const map = k.add([k.sprite('background'), k.pos(0, 0), k.scale(SCALE_FACTOR)]);
+
+  const clouds = map.add([k.sprite('clouds'), k.pos(), { speed: 5 }]);
+  clouds.onUpdate(() => {
+    clouds.move(clouds.speed, 0);
+    if (clouds.pos.x > 700) {
+      // put the clouds far back so it scrolls again through the level
+      clouds.pos.x = -500;
+    }
+  });
 });
 
 k.scene('main', () => {});
