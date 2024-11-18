@@ -32,6 +32,8 @@ k.scene('start', () => {
       clouds.pos.x = -500;
     }
   });
+
+  map.add([k.sprite('obstacles'), k.pos()]);
 });
 
 k.scene('main', () => {});
