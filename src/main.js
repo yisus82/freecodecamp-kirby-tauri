@@ -1,4 +1,5 @@
 import kaplay from 'kaplay';
+import { colliders } from './colliders';
 import {
   BACKGROUND_COLOR,
   BUTTON_COLOR,
@@ -104,6 +105,17 @@ k.scene('main', () => {
       obstacles.speed += 30;
     }
   });
+
+  for (const collider of colliders) {
+    obstacles.add([
+      k.area({
+        shape: new k.Rect(k.vec2(0), collider.width, collider.height),
+      }),
+      k.body({ isStatic: true }),
+      k.pos(collider.x, collider.y),
+      'obstacle',
+    ]);
+  }
 });
 
 k.go('start');
