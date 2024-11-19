@@ -6,6 +6,7 @@ import {
   CLOUDS_MAX_POS_X,
   CLOUDS_MIN_POS_X,
   CLOUDS_SPEED,
+  GRAVITY,
   OBSTACLES_MAX_POS_X,
   OBSTACLES_MIN_POS_X,
   OBSTACLES_SPEED,
@@ -17,6 +18,8 @@ import {
   PLAY_BUTTON_RADIUS,
   PLAY_BUTTON_TEXT,
   PLAY_BUTTON_WIDTH,
+  PLAYER_INITIAL_POS_X,
+  PLAYER_INITIAL_POS_Y,
   SCALE_FACTOR,
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
@@ -119,6 +122,22 @@ k.scene('main', () => {
       'obstacle',
     ]);
   }
+
+  const player = k.add(makePlayer(k));
+  player.pos = k.vec2(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y);
+  player.setControls();
+  player.onCollide('obstacle', async () => {
+    if (player.isDead) {
+      return;
+    }
+    k.play('hurt');
+    obstacles.speed = 0;
+    clouds.speed = 0;
+    player.disableControls();
+    player.isDead = true;
+  });
+
+  k.setGravity(GRAVITY);
 });
 
 k.go('start');

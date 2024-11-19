@@ -1,7 +1,8 @@
-// Screen
+// Game
 export const WINDOW_WIDTH = 1280;
 export const WINDOW_HEIGHT = 720;
 export const SCALE_FACTOR = 4;
+export const GRAVITY = 2500;
 
 // Clouds
 export const CLOUDS_SPEED = 5;
@@ -11,6 +12,8 @@ export const CLOUDS_MIN_POS_X = -500;
 // Player
 export const PLAYER_JUMP_FORCE = 600;
 export const PLAYER_SPEED = 600;
+export const PLAYER_INITIAL_POS_X = 50;
+export const PLAYER_INITIAL_POS_Y = 300;
 
 // Colors
 export const BACKGROUND_COLOR = '#d7f2f7';
