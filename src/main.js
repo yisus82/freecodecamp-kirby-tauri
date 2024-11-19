@@ -6,7 +6,10 @@ import {
   CLOUDS_MAX_POS_X,
   CLOUDS_MIN_POS_X,
   CLOUDS_SPEED,
+  OBSTACLES_MAX_POS_X,
+  OBSTACLES_MIN_POS_X,
   OBSTACLES_SPEED,
+  OBSTACLES_SPEED_INCREASE,
   PLAY_BUTTON_FONT_SIZE,
   PLAY_BUTTON_HEIGHT,
   PLAY_BUTTON_OFFSET_X,
@@ -98,11 +101,11 @@ k.scene('main', () => {
   const obstacles = map.add([k.sprite('obstacles'), k.pos(), k.area(), { speed: OBSTACLES_SPEED }]);
   obstacles.onUpdate(() => {
     obstacles.move(-obstacles.speed, 0);
-    if (obstacles.pos.x < -490) {
+    if (obstacles.pos.x < OBSTACLES_MIN_POS_X) {
       // put the obstacles sprite far back so it scrolls again through the level
-      obstacles.pos.x = 300;
+      obstacles.pos.x = OBSTACLES_MAX_POS_X;
       // progressively increase speed
-      obstacles.speed += 30;
+      obstacles.speed += OBSTACLES_SPEED_INCREASE;
     }
   });
 

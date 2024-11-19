@@ -27,3 +27,6 @@ export const PLAY_BUTTON_TEXT = 'Play';
 
 // Obstacles
 export const OBSTACLES_SPEED = 100;
+export const OBSTACLES_MIN_POS_X = -490;
+export const OBSTACLES_MAX_POS_X = 300;
+export const OBSTACLES_SPEED_INCREASE = 30;
