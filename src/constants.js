@@ -24,3 +24,6 @@ export const PLAY_BUTTON_OFFSET_X = 30;
 export const PLAY_BUTTON_OFFSET_Y = 60;
 export const PLAY_BUTTON_FONT_SIZE = 24;
 export const PLAY_BUTTON_TEXT = 'Play';
+
+// Obstacles
+export const OBSTACLES_SPEED = 100;

@@ -5,6 +5,7 @@ import {
   CLOUDS_MAX_POS_X,
   CLOUDS_MIN_POS_X,
   CLOUDS_SPEED,
+  OBSTACLES_SPEED,
   PLAY_BUTTON_FONT_SIZE,
   PLAY_BUTTON_HEIGHT,
   PLAY_BUTTON_OFFSET_X,
@@ -90,6 +91,17 @@ k.scene('main', () => {
     if (clouds.pos.x > CLOUDS_MAX_POS_X) {
       // put the clouds sprite far back so it scrolls again through the level
       clouds.pos.x = CLOUDS_MIN_POS_X;
+    }
+  });
+
+  const obstacles = map.add([k.sprite('obstacles'), k.pos(), k.area(), { speed: OBSTACLES_SPEED }]);
+  obstacles.onUpdate(() => {
+    obstacles.move(-obstacles.speed, 0);
+    if (obstacles.pos.x < -490) {
+      // put the obstacles sprite far back so it scrolls again through the level
+      obstacles.pos.x = 300;
+      // progressively increase speed
+      obstacles.speed += 30;
     }
   });
 });
