@@ -123,6 +123,11 @@ k.scene('main', () => {
     ]);
   }
 
+  let score = 0;
+  k.loop(1, () => {
+    score += 1;
+  });
+
   const player = k.add(makePlayer(k));
   player.pos = k.vec2(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y);
   player.setControls();
@@ -135,6 +140,7 @@ k.scene('main', () => {
     clouds.speed = 0;
     player.disableControls();
     player.isDead = true;
+    console.log('Game over! Your score was:', score);
   });
 
   k.setGravity(GRAVITY);
