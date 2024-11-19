@@ -1,10 +1,17 @@
 import kaplay from 'kaplay';
-
-const SCALE_FACTOR = 4;
+import {
+  BACKGROUND_COLOR,
+  CLOUDS_MAX_POS_X,
+  CLOUDS_MIN_POS_X,
+  CLOUDS_SPEED,
+  SCALE_FACTOR,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH,
+} from './constants';
 
 const k = kaplay({
-  width: 1280,
-  height: 720,
+  width: WINDOW_WIDTH,
+  height: WINDOW_HEIGHT,
   letterbox: true,
   global: false,
   scale: SCALE_FACTOR,
@@ -20,16 +27,16 @@ k.loadSound('hurt', './images/hurt.wav');
 k.loadSound('jump', './images/jump.wav');
 
 k.scene('start', () => {
-  k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex('#d7f2f7')), k.fixed()]);
+  k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex(BACKGROUND_COLOR)), k.fixed()]);
 
   const map = k.add([k.sprite('background'), k.pos(0, 0), k.scale(SCALE_FACTOR)]);
 
-  const clouds = map.add([k.sprite('clouds'), k.pos(), { speed: 5 }]);
+  const clouds = map.add([k.sprite('clouds'), k.pos(), { speed: CLOUDS_SPEED }]);
   clouds.onUpdate(() => {
     clouds.move(clouds.speed, 0);
-    if (clouds.pos.x > 700) {
-      // put the clouds far back so it scrolls again through the level
-      clouds.pos.x = -500;
+    if (clouds.pos.x > CLOUDS_MAX_POS_X) {
+      // put the clouds sprite far back so it scrolls again through the level
+      clouds.pos.x = CLOUDS_MIN_POS_X;
     }
   });
 
