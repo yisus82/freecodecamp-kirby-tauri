@@ -5,3 +5,5 @@ export const BACKGROUND_COLOR = '#d7f2f7';
 export const CLOUDS_SPEED = 5;
 export const CLOUDS_MAX_POS_X = 700;
 export const CLOUDS_MIN_POS_X = -500;
+export const PLAYER_JUMP_FORCE = 600;
+export const PLAYER_SPEED = 600;

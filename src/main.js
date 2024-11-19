@@ -8,6 +8,7 @@ import {
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
 } from './constants';
+import { makePlayer } from './player';
 
 const k = kaplay({
   width: WINDOW_WIDTH,
@@ -41,6 +42,9 @@ k.scene('start', () => {
   });
 
   map.add([k.sprite('obstacles'), k.pos()]);
+
+  const player = k.add(makePlayer(k));
+  player.pos = k.center();
 });
 
 k.scene('main', () => {});
