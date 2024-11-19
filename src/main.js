@@ -128,10 +128,7 @@ k.scene('main', () => {
     score += 1;
   });
 
-  const player = k.add(makePlayer(k));
-  player.pos = k.vec2(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y);
-  player.setControls();
-  player.onCollide('obstacle', async () => {
+  const die = () => {
     if (player.isDead) {
       return;
     }
@@ -141,9 +138,23 @@ k.scene('main', () => {
     player.disableControls();
     player.isDead = true;
     console.log('Game over! Your score was:', score);
-  });
+  };
+
+  const player = k.add(makePlayer(k));
+  player.pos = k.vec2(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y);
+  player.setControls();
+  player.onCollide('obstacle', die);
 
   k.setGravity(GRAVITY);
+
+  player.onUpdate(() => {
+    if (player.pos.y > k.height()) {
+      die();
+    }
+    if (player.pos.y < 0) {
+      player.pos.y = 0;
+    }
+  });
 });
 
 k.go('start');
