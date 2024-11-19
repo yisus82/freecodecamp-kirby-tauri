@@ -49,7 +49,7 @@ k.scene('start', () => {
     }
   });
 
-  map.add([k.sprite('obstacles'), k.pos()]);
+  map.add([k.sprite('obstacles')]);
 
   const player = k.add(makePlayer(k));
   player.pos = k.center();
@@ -79,6 +79,19 @@ k.scene('start', () => {
   k.onGamepadButtonPress('south', goToGame);
 });
 
-k.scene('main', () => {});
+k.scene('main', () => {
+  k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex(BACKGROUND_COLOR)), k.fixed()]);
+
+  const map = k.add([k.sprite('background'), k.pos(0, 0), k.scale(SCALE_FACTOR)]);
+
+  const clouds = map.add([k.sprite('clouds'), k.pos(), { speed: CLOUDS_SPEED }]);
+  clouds.onUpdate(() => {
+    clouds.move(clouds.speed, 0);
+    if (clouds.pos.x > CLOUDS_MAX_POS_X) {
+      // put the clouds sprite far back so it scrolls again through the level
+      clouds.pos.x = CLOUDS_MIN_POS_X;
+    }
+  });
+});
 
 k.go('start');
