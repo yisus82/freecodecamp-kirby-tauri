@@ -3,11 +3,11 @@ import { PLAYER_JUMP_FORCE, PLAYER_SPEED, SCALE_FACTOR } from './constants';
 /**
  * Makes a player object
  *
- * @param {import('kaplay').KAPLAYCtx} k The KAPLAY context
+ * @param {import('kaplay').KAPLAYCtx} k The Kaplay context
  * @return {import('kaplay').GameObj} The player object
  */
-export function makePlayer(k) {
-  return k.make([
+export const makePlayer = k =>
+  k.make([
     k.sprite('kirby'),
     k.area({ shape: new k.Rect(k.vec2(0, 1.5), 8, 5) }),
     k.anchor('center'),
@@ -33,4 +33,3 @@ export function makePlayer(k) {
       },
     },
   ]);
-}

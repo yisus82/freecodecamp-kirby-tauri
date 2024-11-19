@@ -1,8 +1,8 @@
 import kaplay from 'kaplay';
+import { makeButton } from './button';
 import { colliders } from './colliders';
 import {
   BACKGROUND_COLOR,
-  BUTTON_COLOR,
   CLOUDS_MAX_POS_X,
   CLOUDS_MIN_POS_X,
   CLOUDS_SPEED,
@@ -25,6 +25,7 @@ import {
   WINDOW_WIDTH,
 } from './constants';
 import { makePlayer } from './player';
+import { makeScoreBox } from './scoreBox';
 
 const k = kaplay({
   width: WINDOW_WIDTH,
@@ -42,6 +43,11 @@ k.loadSprite('obstacles', './images/obstacles.png');
 k.loadSound('confirm', './sounds/confirm.wav');
 k.loadSound('hurt', './sounds/hurt.wav');
 k.loadSound('jump', './sounds/jump.wav');
+
+const goToMain = () => {
+  k.play('confirm');
+  k.go('main');
+};
 
 k.scene('start', () => {
   k.add([k.rect(k.width(), k.height()), k.color(k.Color.fromHex(BACKGROUND_COLOR)), k.fixed()]);
@@ -62,29 +68,22 @@ k.scene('start', () => {
   const player = k.add(makePlayer(k));
   player.pos = k.center();
 
-  const playButton = k.add([
-    k.rect(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT, { radius: PLAY_BUTTON_RADIUS }),
-    k.color(k.Color.fromHex(BUTTON_COLOR)),
-    k.area(),
-    k.anchor('center'),
-    k.pos(k.center().x + PLAY_BUTTON_OFFSET_X, k.center().y + PLAY_BUTTON_OFFSET_Y),
-  ]);
+  k.add(
+    makeButton(
+      k,
+      PLAY_BUTTON_TEXT,
+      PLAY_BUTTON_WIDTH,
+      PLAY_BUTTON_HEIGHT,
+      PLAY_BUTTON_RADIUS,
+      PLAY_BUTTON_FONT_SIZE,
+      k.center().x + PLAY_BUTTON_OFFSET_X,
+      k.center().y + PLAY_BUTTON_OFFSET_Y,
+      goToMain
+    )
+  );
 
-  playButton.add([
-    k.text(PLAY_BUTTON_TEXT, { size: PLAY_BUTTON_FONT_SIZE }),
-    k.color(k.Color.fromHex(BACKGROUND_COLOR)),
-    k.area(),
-    k.anchor('center'),
-  ]);
-
-  const goToGame = () => {
-    k.play('confirm');
-    k.go('main');
-  };
-
-  playButton.onClick(goToGame);
-  k.onKeyPress('space', goToGame);
-  k.onGamepadButtonPress('south', goToGame);
+  k.onKeyPress('space', goToMain);
+  k.onGamepadButtonPress('south', goToMain);
 });
 
 k.scene('main', () => {
@@ -137,7 +136,7 @@ k.scene('main', () => {
     clouds.speed = 0;
     player.disableControls();
     player.isDead = true;
-    console.log('Game over! Your score was:', score);
+    k.add(makeScoreBox(k, score, goToMain));
   };
 
   const player = k.add(makePlayer(k));
